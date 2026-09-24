@@ -455,155 +455,497 @@ img {
 .hero-visual {
     display: flex;
     justify-content: center;
+    align-items: center;
     position: relative;
 }
 
-.profile-card-wrapper {
+/* =============================================
+   PROFILE ORBIT WRAPPER
+   ============================================= */
+.profile-orbit-wrapper {
     position: relative;
-    width: 100%;
-    max-width: 380px;
+    width: 420px;
+    height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.profile-card {
-    background: var(--glass-card);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--border-light);
-    border-radius: var(--radius-lg);
-    padding: 36px 24px 30px 24px;
+/* Orbit rings */
+.orbit-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px dashed rgba(56, 189, 248, 0.22);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: orbitSpin linear infinite;
+}
+
+.orbit-ring-1 {
+    width: 340px;
+    height: 340px;
+    animation-duration: 12s;
+}
+
+.orbit-ring-2 {
+    width: 410px;
+    height: 410px;
+    animation-duration: 18s;
+    animation-direction: reverse;
+    border-color: rgba(37, 99, 235, 0.18);
+}
+
+.orbit-ring-3 {
+    width: 470px;
+    height: 470px;
+    animation-duration: 26s;
+    border-color: rgba(6, 182, 212, 0.12);
+}
+
+@keyframes orbitSpin {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Orbit dots */
+.orbit-dot {
+    position: absolute;
+    border-radius: 50%;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+}
+
+.orbit-dot-1 {
+    width: 10px;
+    height: 10px;
+    background: #38bdf8;
+    color: #38bdf8;
+}
+
+.orbit-dot-2 {
+    width: 8px;
+    height: 8px;
+    background: #2563eb;
+    color: #2563eb;
+    top: auto;
+    bottom: -4px;
+}
+
+.orbit-dot-3 {
+    width: 6px;
+    height: 6px;
+    background: #06b6d4;
+    color: #06b6d4;
+}
+
+/* =============================================
+   PROFILE CARD V2 - Premium Glassmorphism
+   ============================================= */
+.profile-card-v2 {
+    position: relative;
+    width: 330px;
+    background: linear-gradient(145deg, rgba(22, 35, 58, 0.92) 0%, rgba(13, 20, 32, 0.96) 100%);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(56, 189, 248, 0.18);
+    border-radius: 24px;
+    padding: 28px 22px 24px;
     text-align: center;
-    box-shadow: var(--shadow-md);
-    position: relative;
+    box-shadow:
+        0 0 0 1px rgba(56, 189, 248, 0.08),
+        0 20px 60px rgba(0, 0, 0, 0.55),
+        0 0 80px rgba(56, 189, 248, 0.06) inset;
+    z-index: 2;
     overflow: hidden;
-    transition: var(--transition-smooth);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        box-shadow 0.4s ease;
+    animation: cardEntrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-.profile-card::before {
-    content: '';
+@keyframes cardEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.profile-card-v2:hover {
+    transform: translateY(-6px) scale(1.015);
+    box-shadow:
+        0 0 0 1px rgba(56, 189, 248, 0.25),
+        0 28px 70px rgba(0, 0, 0, 0.6),
+        0 0 100px rgba(56, 189, 248, 0.10) inset;
+}
+
+/* Corner accent brackets */
+.corner-accent {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-color: var(--accent-cyan);
+    border-style: solid;
+    opacity: 0.65;
+    transition: opacity 0.3s;
+}
+
+.profile-card-v2:hover .corner-accent {
+    opacity: 1;
+}
+
+.ca-tl {
+    top: 10px;
+    left: 10px;
+    border-width: 2px 0 0 2px;
+    border-radius: 3px 0 0 0;
+}
+
+.ca-tr {
+    top: 10px;
+    right: 10px;
+    border-width: 2px 2px 0 0;
+    border-radius: 0 3px 0 0;
+}
+
+.ca-bl {
+    bottom: 10px;
+    left: 10px;
+    border-width: 0 0 2px 2px;
+    border-radius: 0 0 0 3px;
+}
+
+.ca-br {
+    bottom: 10px;
+    right: 10px;
+    border-width: 0 2px 2px 0;
+    border-radius: 0 0 3px 0;
+}
+
+/* Scan line sweep */
+.scan-line {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #1d4ed8, #2563eb, #38bdf8, #06b6d4);
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.7), transparent);
+    animation: scanDown 4s ease-in-out infinite;
+    z-index: 5;
+    pointer-events: none;
 }
 
-.avatar-ring {
-    width: 220px;
-    height: 220px;
-    margin: 0 auto 22px auto;
-    border-radius: 20px;
-    padding: 4px;
-    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-deep-blue));
-    box-shadow: 0 0 30px rgba(56, 189, 248, 0.35);
-    transition: var(--transition-smooth);
+@keyframes scanDown {
+    0% {
+        top: 0;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
 }
 
-.profile-card:hover .avatar-ring {
-    box-shadow: 0 0 35px rgba(56, 189, 248, 0.55);
-    transform: translateY(-2px);
+/* =============================================
+   AVATAR - HALO SPINNING RINGS
+   ============================================= */
+.avatar-halo-wrap {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 18px auto;
 }
 
-.avatar-inner {
-    width: 100%;
-    height: 100%;
-    border-radius: 16px;
-    background: var(--bg-deep);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.halo-ring {
+    position: absolute;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    border: 2px solid transparent;
+    animation: haloSpin linear infinite;
+}
+
+.halo-outer {
+    width: 192px;
+    height: 192px;
+    margin-top: -96px;
+    margin-left: -96px;
+    background: linear-gradient(var(--bg-deep), var(--bg-deep)) padding-box,
+        linear-gradient(135deg, #38bdf8, #2563eb, transparent, #06b6d4) border-box;
+    animation-duration: 4s;
+}
+
+.halo-inner {
+    width: 172px;
+    height: 172px;
+    margin-top: -86px;
+    margin-left: -86px;
+    background: linear-gradient(var(--bg-deep), var(--bg-deep)) padding-box,
+        linear-gradient(135deg, #06b6d4, transparent, #38bdf8) border-box;
+    animation-duration: 3s;
+    animation-direction: reverse;
+}
+
+@keyframes haloSpin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Avatar frame */
+.avatar-frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 156px;
+    height: 156px;
+    border-radius: 50%;
     overflow: hidden;
-}
-
-.avatar-placeholder {
-    width: 100%;
-    height: 100%;
-    border-radius: 16px;
     background: radial-gradient(circle, #0a1a3d 0%, #050d1a 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+    z-index: 2;
 }
 
-.avatar-placeholder img {
+.avatar-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 18%;
+    object-position: center 15%;
     display: block;
-    transition: transform 0.4s ease;
+    transition: transform 0.5s ease;
 }
 
-.profile-card:hover .avatar-placeholder img {
-    transform: scale(1.05);
+.profile-card-v2:hover .avatar-img {
+    transform: scale(1.08);
 }
 
-.avatar-initials {
-    font-size: 2.2rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    color: var(--accent-cyan);
-    text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+.avatar-glow-overlay {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(56, 189, 248, 0.12) 0%, transparent 70%);
+    pointer-events: none;
 }
 
-.profile-name {
-    font-size: 1.25rem;
+/* Online badge */
+.online-badge {
+    position: absolute;
+    bottom: -4px;
+    right: -8px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(8, 12, 20, 0.90);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    border-radius: var(--radius-full);
+    padding: 3px 10px 3px 6px;
+    font-size: 0.7rem;
     font-weight: 700;
-    margin-bottom: 6px;
-    color: var(--text-pure);
+    color: #4ade80;
+    z-index: 10;
+    backdrop-filter: blur(8px);
 }
 
-.profile-role {
-    font-size: 0.9rem;
-    color: var(--accent-sky);
-    font-weight: 600;
+.online-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    animation: onlinePulse 1.5s ease-in-out infinite;
+    display: block;
+}
+
+@keyframes onlinePulse {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.6);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 0 5px rgba(74, 222, 128, 0);
+        transform: scale(1.2);
+    }
+}
+
+/* =============================================
+   PROFILE INFO
+   ============================================= */
+.pcard-info {
+    margin-bottom: 18px;
+}
+
+.pcard-name {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text-pure);
+    margin-bottom: 7px;
+    letter-spacing: 0.3px;
+    background: linear-gradient(135deg, #fff 30%, #7dd3fc 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.pcard-role-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(56, 189, 248, 0.08);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    border-radius: var(--radius-full);
+    padding: 4px 14px;
     margin-bottom: 8px;
 }
 
-.profile-school {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
+.pcard-role-icon {
+    color: var(--accent-cyan);
+    font-size: 0.75rem;
+}
+
+.pcard-role {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent-sky);
+}
+
+.pcard-school {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    margin-bottom: 24px;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
 }
 
-.tech-stack-floating {
+.pcard-school i {
+    color: var(--accent-teal);
+}
+
+/* =============================================
+   ANIMATED STATS
+   ============================================= */
+.pcard-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    background: rgba(56, 189, 248, 0.05);
+    border: 1px solid rgba(56, 189, 248, 0.12);
+    border-radius: var(--radius-md);
+    padding: 12px 10px;
+    margin-bottom: 16px;
+}
+
+.pstat {
+    flex: 1;
+    text-align: center;
+}
+
+.pstat-num {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--accent-cyan);
+    font-family: var(--font-code);
+    line-height: 1;
+    text-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+}
+
+.pstat-label {
+    display: block;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pstat-divider {
+    width: 1px;
+    height: 36px;
+    background: rgba(56, 189, 248, 0.2);
+    margin: 0 4px;
+}
+
+/* =============================================
+   TECH PILLS
+   ============================================= */
+.pcard-techs {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 8px;
-}
-
-.tech-pill {
-    font-size: 0.8rem;
-    font-weight: 600;
-    padding: 6px 12px;
-    border-radius: var(--radius-full);
-    background: rgba(255, 45, 120, 0.10);
-    border: 1px solid rgba(255, 128, 171, 0.22);
-    color: var(--text-primary);
-    display: inline-flex;
-    align-items: center;
     gap: 6px;
 }
 
-.text-orange {
+.ptech {
+    font-size: 0.73rem;
+    font-weight: 700;
+    padding: 5px 11px;
+    border-radius: var(--radius-full);
+    background: rgba(37, 99, 235, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    color: var(--text-primary);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: var(--transition-fast);
+    cursor: default;
+}
+
+.ptech:hover {
+    background: rgba(56, 189, 248, 0.18);
+    border-color: rgba(56, 189, 248, 0.45);
+    color: var(--accent-cyan);
+    transform: translateY(-2px);
+}
+
+.ptech i {
+    font-size: 0.85em;
+}
+
+.ptech .fa-html5 {
     color: #f97316;
 }
 
-.text-blue {
-    color: #f472b6;
+.ptech .fa-css3-alt {
+    color: #38bdf8;
 }
 
-.text-yellow {
+.ptech .fa-js {
     color: #facc15;
 }
 
-.text-purple {
-    color: #a855f7;
+.ptech .fa-php {
+    color: #a78bfa;
+}
+
+.ptech .fa-git-alt {
+    color: #fb923c;
 }
 
 /* Floating Badges */
@@ -618,19 +960,19 @@ img {
     align-items: center;
     gap: 12px;
     box-shadow: var(--shadow-md);
-    z-index: 2;
+    z-index: 3;
     animation: float 4s ease-in-out infinite;
 }
 
 .badge-top-right {
-    top: -15px;
-    right: -25px;
+    top: 10px;
+    right: -20px;
     animation-delay: 0s;
 }
 
 .badge-bottom-left {
-    bottom: 25px;
-    left: -30px;
+    bottom: 50px;
+    left: -20px;
     animation-delay: 2s;
 }
 
@@ -662,6 +1004,7 @@ img {
     font-size: 0.75rem;
     color: var(--accent-sky);
 }
+
 
 /* Common Section Styles */
 .section {
@@ -1639,6 +1982,19 @@ a.method-value:hover {
         justify-content: center;
     }
 
+    .profile-orbit-wrapper {
+        width: 320px;
+        height: 380px;
+    }
+
+    .orbit-ring-3 {
+        display: none;
+    }
+
+    .profile-card-v2 {
+        width: 295px;
+    }
+
     .skills-grid {
         grid-template-columns: 1fr;
     }
@@ -1733,9 +2089,44 @@ a.method-value:hover {
 }
 
 @media (max-width: 480px) {
-    .avatar-ring {
-        width: 190px;
-        height: 190px;
+    .profile-orbit-wrapper {
+        width: 280px;
+        height: 340px;
+    }
+
+    .orbit-ring-1,
+    .orbit-ring-2,
+    .orbit-ring-3 {
+        display: none;
+    }
+
+    .profile-card-v2 {
+        width: 270px;
+        padding: 22px 16px 20px;
+    }
+
+    .avatar-halo-wrap {
+        width: 140px;
+        height: 140px;
+    }
+
+    .halo-outer {
+        width: 152px;
+        height: 152px;
+        margin-top: -76px;
+        margin-left: -76px;
+    }
+
+    .halo-inner {
+        width: 136px;
+        height: 136px;
+        margin-top: -68px;
+        margin-left: -68px;
+    }
+
+    .avatar-frame {
+        width: 118px;
+        height: 118px;
     }
 }
 

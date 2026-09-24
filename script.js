@@ -346,4 +346,53 @@ document.addEventListener('DOMContentLoaded', () => {
             contactForm.reset();
         }
     });
+
+    // =============================================
+    // Animated Stat Counters on Profile Card
+    // =============================================
+    function animateCounter(el) {
+        const target = parseInt(el.getAttribute('data-target'), 10);
+        const duration = 1400;
+        const startTime = performance.now();
+        function step(now) {
+            const progress = Math.min((now - startTime) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+            el.textContent = Math.round(eased * target);
+            if (progress < 1) requestAnimationFrame(step);
+            else el.textContent = target;
+        }
+        requestAnimationFrame(step);
+    }
+
+    const statNums = document.querySelectorAll('.pstat-num[data-target]');
+    if (statNums.length) {
+        const counterObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    counterObs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.6 });
+        statNums.forEach(el => counterObs.observe(el));
+    }
+
+    // =============================================
+    // Profile Card 3D Tilt on Mouse Move
+    // =============================================
+    const cardV2 = document.querySelector('.profile-card-v2');
+    if (cardV2) {
+        cardV2.addEventListener('mousemove', (e) => {
+            const r = cardV2.getBoundingClientRect();
+            const x = e.clientX - r.left;
+            const y = e.clientY - r.top;
+            const rotX = ((y - r.height / 2) / r.height) * -10;
+            const rotY = ((x - r.width / 2) / r.width) * 10;
+            cardV2.style.transform =
+                `perspective(900px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-6px)`;
+        });
+        cardV2.addEventListener('mouseleave', () => {
+            cardV2.style.transform = '';
+        });
+    }
 });
