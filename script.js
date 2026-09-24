@@ -1,581 +1,349 @@
 /**
- * Portofolio Nayla Vilova Tivani — Web Developer
- * Siswi Rekayasa Perangkat Lunak (RPL) - SMK Telkom Lampung
- * Inspirasi Desain & Arsitektur: adityadwiputra.my.id (Enhanced with 3D Tilt & Cyber Glow)
- * File: script.js (Pure Vanilla JavaScript ES6+)
+ * Portofolio Web Script - Baiq Salfa Sheyna Arfani
+ * Siswa Rekayasa Perangkat Lunak (RPL) - SMK Telkom Lampung
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    'use strict';
-
-    // =========================================================================
-    // 1. DATA DETAIL SISTEM PROYEK (100% Data Siswa RPL SMK Telkom Lampung)
-    // =========================================================================
-    const projectDatabase = {
-        siaspirasi: {
-            tag: 'SISTEM SEKOLAH · WEB APPLICATION',
-            title: 'SiAspirasi Moklet — Platform Pengaduan & Aspirasi Siswa',
-            org: 'SMK Telkom Lampung · Lingkungan Kesiswaan & Bimbingan Konseling (2025/2026)',
-            description: 'SiAspirasi Moklet adalah platform pelaporan pengaduan dan aspirasi warga sekolah SMK Telkom Lampung yang dirancang secara transparan. Sistem ini menyelesaikan permasalahan pelaporan manual atau pesan terselip di grup obrolan dengan menyediakan formulir terstruktur, kode unik pelacakan tiket, serta pengelompokan penanganan berdasarkan bidang kesiswaan.',
+    // 1. Data Modal Proyek
+    const projectData = {
+        siakad: {
+            title: "SIAKAD & Presensi Siswa SMK Telkom Lampung",
+            badge: "Web Application • PHP & MySQL",
+            description: "Sistem Informasi Akademik dan Presensi Siswa yang dirancang khusus untuk mempermudah tata kelola kehadiran siswa di SMK Telkom Lampung. Proyek ini memangkas pencatatan manual dan meminimalisir kesalahan rekap absensi.",
             features: [
-                'Formulir pengaduan dinamis dengan validasi input komprehensif (Akademik, Fasilitas Lab Komputer, Ekstrakurikuler, Kebersihan Lingkungan Sekolah).',
-                'Sistem Pelacakan Tiket (Ticket Tracking): Siswa dapat memasukkan nomor tiket untuk memantau status tindak lanjut (Menunggu Konfirmasi, Sedang Ditinjau Tim Sekolah, Selesai).',
-                'Penyimpanan Lokal Persisten: Mengimplementasikan Web LocalStorage API untuk menyimpan riwayat pelaporan secara aman pada peramban.',
-                'Dashboard Monitoring Siswa: Tampilan rekapitulasi jumlah aspirasi yang masuk dan telah diselesaikan secara transparan.',
-                'Antarmuka Responsif & Cepat: Dirancang dengan HTML5 semantik dan CSS3 modern tanpa membebani kuota data siswa saat diakses via ponsel.'
+                "Pencatatan presensi harian siswa berbasis web",
+                "Dashboard rekapitulasi data kehadiran untuk guru dan wali kelas",
+                "Pencatatan dan kalkulasi nilai tugas & ujian kejuruan RPL",
+                "Cetak laporan otomatis ke format PDF / Excel",
+                "Autentikasi role multi-user (Admin, Guru, Siswa)"
             ],
-            role: '<strong>Peran Pengembang:</strong> Nayla Vilova Tivani sebagai Front-End Developer & UI Designer. Bertanggung jawab penuh atas perancangan mockup antarmuka di Figma, slicing ke kode HTML/CSS responsif, implementasi validasi formulir JavaScript, serta alur penyimpanan data tiket.',
-            tech: ['HTML5 Semantik', 'CSS3 Grid & Flexbox', 'JavaScript ES6+', 'LocalStorage API', 'Form Validation', 'Responsive UI']
+            techStack: ["HTML5", "CSS3 / Bootstrap", "JavaScript ES6", "PHP OOP", "MySQL"]
         },
-        smartlib: {
-            tag: 'DIGITAL CATALOG & SEARCH ENGINE',
-            title: 'SmartLib Telkom — Katalog Modul Pembelajaran & E-Book RPL',
-            org: 'SMK Telkom Lampung · Perpustakaan Digital Jurusan RPL (2025/2026)',
-            description: 'SmartLib Telkom menyajikan katalog perpustakaan digital interaktif untuk mempermudah siswa jurusan Rekayasa Perangkat Lunak menemukan referensi materi praktikum, dokumentasi sintaks pemrograman, serta e-book teknologi. Menghadirkan fitur pencarian instan tanpa refresh halaman yang efisien.',
+        library: {
+            title: "Telkom Smart Library (Perpustakaan Digital)",
+            badge: "Web Application • Modern JavaScript",
+            description: "Platform katalog dan peminjaman buku digital bagi siswa SMK Telkom Lampung. Menyediakan kemudahan mencari referensi buku pelajaran kejuruan, modul kurikulum merdeka, serta pelacakan sirkulasi buku perpustakaan.",
             features: [
-                'Live Search Filter Cerdas: Menyaring puluhan daftar modul praktikum secara instan berdasarkan judul materi, bahasa pemrograman, atau topik kejuruan.',
-                'Kategori Terstruktur: Dasar Pemrograman Algoritma, Pemrograman Web (HTML/CSS/JS/PHP), Basis Data MySQL, serta Desain Antarmuka Figma.',
-                'Sistem Bookmark Modul Favorit: Menyimpan materi yang sering dibaca ke dalam daftar koleksi pribadi siswa menggunakan Web Storage.',
-                'Tampilan Rak Kartu Digital: Desain kartu modul modern dengan indikator level kesulitan materi dan tombol pratinjau ringkasan.',
-                'Aksesibilitas & Keterbacaan Optimal: Menggunakan kontras warna yang nyaman untuk membaca materi teknis dalam durasi lama.'
+                "Pencarian buku dengan filter kategori (Kejuruan RPL, Umum, Fiksi)",
+                "Fitur peminjaman buku online dan pengembalian berbasis tenggat waktu",
+                "Perhitungan denda keterlambatan secara otomatis",
+                "Penyimpanan riwayat baca & daftar keinginan (Wishlist) siswa",
+                "Antarmuka responsif dan modern bertema Sea Blue"
             ],
-            role: '<strong>Peran Pengembang:</strong> Nayla Vilova Tivani sebagai UI/UX Designer & Front-End Developer. Mengonsep arsitektur pencarian berbasis manipulasi DOM, menyusun sistem token warna gelap, dan memastikan tata letak kartu modul rapi di semua ukuran layar.',
-            tech: ['Semantic HTML5', 'Custom CSS Variables', 'DOM Regex Filter', 'Vanilla JavaScript ES6', 'Figma Prototyping']
+            techStack: ["HTML5", "CSS Grid & Flexbox", "JavaScript (ES6+)", "REST API / LocalStorage"]
         },
-        presensiqr: {
-            tag: 'SCHOOL SYSTEM · JURNAL MAGANG',
-            title: 'PresensiQR RPL — Dashboard Absensi & Jurnal Harian PKL',
-            org: 'SMK Telkom Lampung · Program Praktik Kerja Lapangan (2025/2026)',
-            description: 'PresensiQR RPL adalah prototipe sistem web presensi digital dan logbook catatan aktivitas harian bagi siswa SMK Telkom Lampung yang sedang menjalani masa Praktik Kerja Lapangan (PKL) di dunia industri teknologi.',
+        rplsite: {
+            title: "Portal Profil Jurusan RPL SMK Telkom Lampung",
+            badge: "Landing Page • UI/UX Showcase",
+            description: "Halaman web representatif jurusan Rekayasa Perangkat Lunak SMK Telkom Lampung yang dirancang untuk memperkenalkan potensi jurusan, karya inovasi siswa, dan kurikulum vokasi berbasis industri.",
             features: [
-                'Pencatatan Presensi Digital: Fitur simulasi tap ID/QR siswa dengan pencatatan stempel waktu (jam datang dan jam pulang) yang akurat.',
-                'Jurnal Aktivitas Harian (Logbook): Kolom pengisian ringkasan pekerjaan teknis, kendala yang dihadapi, serta solusi yang diterapkan di tempat magang.',
-                'Metrik Kehadiran Visual: Menampilkan persentase kehadiran tepat waktu dan status persetujuan jurnal oleh guru pembimbing.',
-                'Fitur Format Cetak (Print View): Mengatur tata letak halaman agar siap dicetak langsung menjadi berkas laporan resmi akhir kegiatan PKL.'
+                "Showcase kompetensi keahlian dan kurikulum software engineering",
+                "Galeri portofolio karya aplikasi unggulan siswa RPL",
+                "Informasi profil tenaga pengajar kejuruan dan mitra industri",
+                "Formulir registrasi minat bakat & mini workshop internal",
+                "Desain antarmuka responsif ramah mobile dengan efek animasi halus"
             ],
-            role: '<strong>Peran Pengembang:</strong> Nayla Vilova Tivani sebagai Front-End Architect & System Logic Builder. Membangun komponen dashboard, logika verifikasi waktu presensi, serta penyimpanan logbook harian.',
-            tech: ['JavaScript ES6+', 'Dashboard Layout', 'CSS Print Styling', 'Session Storage', 'Responsive Web']
+            techStack: ["HTML5 Semantik", "Sea Blue Modern CSS", "Vanilla JavaScript", "CSS Animations"]
+        },
+        canteen: {
+            title: "Smart Canteen (E-Kantin Siswa SMK)",
+            badge: "Web Application • E-Commerce Mini",
+            description: "Aplikasi web pemesanan makanan kantin sekolah secara digital yang bertujuan mengurai antrean panjang saat jam istirahat di lingkungan sekolah SMK Telkom Lampung.",
+            features: [
+                "Daftar menu makanan dan minuman kantin dengan gambar & harga real-time",
+                "Keranjang belanja interaktif (tambah, kurang, hapus item)",
+                "Kalkulasi total harga dan konfirmasi pesanan instan",
+                "Nomor antrean digital yang muncul setelah pesanan diselesaikan",
+                "Tampilan ramah smartphone yang ringan dan cepat dimuat"
+            ],
+            techStack: ["HTML5", "CSS3 Glassmorphism", "JavaScript DOM & State", "LocalStorage"]
         }
     };
 
-    // =========================================================================
-    // 2. DYNAMIC CURSOR SPOTLIGHT & SCROLL PROGRESS
-    // =========================================================================
-    const cursorSpotlight = document.getElementById('cursorSpotlight');
-    const scrollProgressLine = document.getElementById('scrollProgressLine');
+    // 2. Typewriter Effect pada Hero Section
+    const typingTextElement = document.getElementById('typingText');
+    const roles = [
+        "Web Developer",
+        "Siswa RPL SMK Telkom Lampung",
+        "Frontend Enthusiast",
+        "Junior Programmer",
+        "Problem Solver"
+    ];
+    let roleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typingSpeed = 90;
+    const deletingSpeed = 45;
+    const pauseEnd = 1600;
 
-    // Pointer Move for Spotlight (Fine Pointers)
-    if (cursorSpotlight && window.matchMedia('(pointer: fine)').matches) {
-        window.addEventListener('pointermove', (e) => {
-            cursorSpotlight.style.setProperty('--mouse-x', `${e.clientX}px`);
-            cursorSpotlight.style.setProperty('--mouse-y', `${e.clientY}px`);
-        }, { passive: true });
+    function typeEffect() {
+        if (!typingTextElement) return;
+
+        const currentRole = roles[roleIndex];
+        if (isDeleting) {
+            typingTextElement.textContent = currentRole.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            typingTextElement.textContent = currentRole.substring(0, charIndex + 1);
+            charIndex++;
+        }
+
+        if (!isDeleting && charIndex === currentRole.length) {
+            isDeleting = true;
+            setTimeout(typeEffect, pauseEnd);
+            return;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            roleIndex = (roleIndex + 1) % roles.length;
+            setTimeout(typeEffect, 350);
+            return;
+        }
+
+        const speed = isDeleting ? deletingSpeed : typingSpeed;
+        setTimeout(typeEffect, speed);
     }
 
-    // Update Top Glowing Scroll Progress Bar
-    const updateScroll = () => {
-        const scrollTop = window.scrollY || document.documentElement.scrollTop;
-        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const progress = docHeight > 0 ? (scrollTop / docHeight) : 0;
+    typeEffect();
 
-        if (scrollProgressLine) {
-            scrollProgressLine.style.transform = `scaleX(${progress})`;
+    // 3. Navbar Sticky Effect on Scroll
+    const header = document.getElementById('header');
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+    window.addEventListener('scroll', () => {
+        const scrollPos = window.scrollY;
+
+        if (scrollPos > 40) {
+            header?.classList.add('scrolled');
+        } else {
+            header?.classList.remove('scrolled');
         }
-    };
 
-    window.addEventListener('scroll', updateScroll, { passive: true });
-    updateScroll();
+        // Scroll-to-top button visibility
+        if (scrollPos > 350) {
+            scrollTopBtn?.classList.add('visible');
+        } else {
+            scrollTopBtn?.classList.remove('visible');
+        }
 
-    // =========================================================================
-    // 3. STICKY NAVBAR ELEVATION & ACTIVE LINK TRACKING
-    // =========================================================================
-    const mainNav = document.getElementById('mainNav');
-    const navLinks = document.querySelectorAll('.desktop-nav .navlink, .navlinks .navlink');
-    const sections = document.querySelectorAll('section[id]');
-    const logoBtn = document.getElementById('logoBtn');
+        // Active Nav Link Spy
+        highlightNavOnScroll();
+    });
 
-    const updateNavOnScroll = () => {
-        const scrollY = window.scrollY || document.documentElement.scrollTop;
+    // 4. Mobile Menu Navigation Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+    const navLinks = document.querySelectorAll('.nav-link');
 
-        if (mainNav) {
-            if (scrollY > 20) {
-                mainNav.classList.add('scrolled');
+    menuToggle?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navMenu?.classList.toggle('open');
+        const icon = menuToggle.querySelector('i');
+        if (icon) {
+            if (navMenu?.classList.contains('open')) {
+                icon.className = 'fa-solid fa-xmark';
             } else {
-                mainNav.classList.remove('scrolled');
+                icon.className = 'fa-solid fa-bars';
             }
         }
+    });
 
-        // Active section spy
-        const currentPos = scrollY + 180;
-        sections.forEach((sec) => {
-            const top = sec.offsetTop;
-            const height = sec.offsetHeight;
-            const id = sec.getAttribute('id');
-
-            if (currentPos >= top && currentPos < top + height) {
-                navLinks.forEach((link) => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active');
-                    }
-                });
-            }
+    // Close menu when clicking outside or clicking any nav link
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu?.classList.remove('open');
+            const icon = menuToggle?.querySelector('i');
+            if (icon) icon.className = 'fa-solid fa-bars';
         });
-    };
+    });
 
-    window.addEventListener('scroll', updateNavOnScroll, { passive: true });
-    updateNavOnScroll();
+    document.addEventListener('click', (e) => {
+        if (navMenu?.classList.contains('open') && !navMenu.contains(e.target) && !menuToggle?.contains(e.target)) {
+            navMenu.classList.remove('open');
+            const icon = menuToggle?.querySelector('i');
+            if (icon) icon.className = 'fa-solid fa-bars';
+        }
+    });
 
-    // Logo click scroll to top
-    if (logoBtn) {
-        logoBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+    // 5. Scroll-to-Top Action
+    scrollTopBtn?.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
-    }
+    });
 
-    // =========================================================================
-    // 4. INTERACTIVE 3D TILT EFFECT ON CARDS
-    // =========================================================================
-    const tiltableCards = document.querySelectorAll('.project-card, .hero-photo-card, .pillar-card, .about-card');
+    // 6. Active Nav Link on Scroll (Scroll Spy)
+    const sections = document.querySelectorAll('section[id]');
+    function highlightNavOnScroll() {
+        const scrollY = window.pageYOffset;
 
-    if (window.matchMedia('(pointer: fine)').matches) {
-        tiltableCards.forEach((card) => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const cardWidth = rect.width;
-                const cardHeight = rect.height;
+        sections.forEach(current => {
+            const sectionHeight = current.offsetHeight;
+            const sectionTop = current.offsetTop - 120;
+            const sectionId = current.getAttribute('id');
+            const correspondingLink = document.querySelector(`.nav-link[href*="${sectionId}"]`);
 
-                const centerX = rect.left + cardWidth / 2;
-                const centerY = rect.top + cardHeight / 2;
-
-                const mouseX = e.clientX - centerX;
-                const mouseY = e.clientY - centerY;
-
-                // Subtle rotation angles (-5 to +5 degrees)
-                const rotateXUncapped = (-mouseY / (cardHeight / 2)) * 6;
-                const rotateYUncapped = (mouseX / (cardWidth / 2)) * 6;
-
-                const rotateX = Math.max(-8, Math.min(8, rotateXUncapped));
-                const rotateY = Math.max(-8, Math.min(8, rotateYUncapped));
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
-            });
-
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = '';
-            });
-        });
-    }
-
-    // =========================================================================
-    // 5. ANIMATED STAT COUNTERS ON SCROLL
-    // =========================================================================
-    const statCards = document.querySelectorAll('.stat-card');
-    let statsAnimated = false;
-
-    const animateStats = () => {
-        if (statsAnimated) return;
-
-        statCards.forEach((card) => {
-            const valEl = card.querySelector('.stat-val');
-            if (!valEl) return;
-
-            const originalText = valEl.textContent.trim();
-
-            if (originalText.includes('03')) {
-                let count = 0;
-                const timer = setInterval(() => {
-                    count++;
-                    valEl.textContent = count < 10 ? `0${count}+` : `${count}+`;
-                    if (count >= 3) clearInterval(timer);
-                }, 120);
-            } else if (originalText.includes('100')) {
-                let count = 0;
-                const timer = setInterval(() => {
-                    count += 5;
-                    valEl.textContent = `${count}%`;
-                    if (count >= 100) clearInterval(timer);
-                }, 35);
-            }
-        });
-
-        statsAnimated = true;
-    };
-
-    // =========================================================================
-    // 6. MOBILE MENU DRAWER
-    // =========================================================================
-    const menuBtn = document.getElementById('menuBtn');
-    const mobilePanel = document.getElementById('mobilePanel');
-    const mobileNavlinks = document.querySelectorAll('.mobile-navlink, .mobile-btn-hire');
-
-    const toggleMobileMenu = (forceOpen) => {
-        if (!menuBtn || !mobilePanel) return;
-
-        const isOpen = typeof forceOpen === 'boolean'
-            ? forceOpen
-            : !mobilePanel.classList.contains('open');
-
-        menuBtn.classList.toggle('open', isOpen);
-        menuBtn.setAttribute('aria-expanded', String(isOpen));
-        mobilePanel.classList.toggle('open', isOpen);
-        mobilePanel.setAttribute('aria-hidden', String(!isOpen));
-    };
-
-    if (menuBtn && mobilePanel) {
-        menuBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            toggleMobileMenu();
-        });
-
-        mobileNavlinks.forEach((link) => {
-            link.addEventListener('click', () => {
-                toggleMobileMenu(false);
-            });
-        });
-
-        document.addEventListener('click', (e) => {
-            if (mobilePanel.classList.contains('open') &&
-                !mobilePanel.contains(e.target) &&
-                !menuBtn.contains(e.target)) {
-                toggleMobileMenu(false);
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && mobilePanel.classList.contains('open')) {
-                toggleMobileMenu(false);
-                menuBtn.focus();
-            }
-        });
-
-        window.addEventListener('resize', () => {
-            if (window.innerWidth > 960 && mobilePanel.classList.contains('open')) {
-                toggleMobileMenu(false);
+            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                navLinks.forEach(link => link.classList.remove('active'));
+                correspondingLink?.classList.add('active');
             }
         });
     }
 
-    // =========================================================================
-    // 7. PROJECT FILTER TABS
-    // =========================================================================
-    const filterButtons = document.querySelectorAll('.project-filter');
+    // 7. Project Category Filter
+    const filterBtns = document.querySelectorAll('.filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
 
-    filterButtons.forEach((btn) => {
+    filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            filterButtons.forEach((b) => b.classList.remove('active'));
+            filterBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
 
-            const selectedFilter = btn.dataset.filter;
+            const filterValue = btn.getAttribute('data-filter');
 
-            projectCards.forEach((card) => {
-                const category = card.dataset.category || '';
-
-                if (selectedFilter === 'ALL' || category.includes(selectedFilter)) {
+            projectCards.forEach(card => {
+                const categories = card.getAttribute('data-category') || '';
+                if (filterValue === 'all' || categories.includes(filterValue)) {
                     card.style.display = 'flex';
-                    card.style.animation = 'modal-enter 0.35s ease forwards';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 10);
                 } else {
-                    card.style.display = 'none';
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(15px)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 200);
                 }
             });
         });
     });
 
-    // =========================================================================
-    // 8. SYSTEM DETAIL MODAL DIALOG (<dialog id="systemModal">)
-    // =========================================================================
-    const systemModal = document.getElementById('systemModal');
-    const modalCloseBtn = document.getElementById('modalCloseBtn');
-    const modalCloseActionBtn = document.getElementById('modalCloseActionBtn');
+    // 8. Project Detail Modal Handling
+    const modal = document.getElementById('projectModal');
+    const modalClose = document.getElementById('modalClose');
+    const modalBody = document.getElementById('modalBody');
 
-    const modalTag = document.getElementById('modalTag');
-    const modalHeading = document.getElementById('modalHeading');
-    const modalOrg = document.getElementById('modalOrg');
-    const modalDesc = document.getElementById('modalDesc');
-    const modalFeatures = document.getElementById('modalFeatures');
-    const modalRole = document.getElementById('modalRole');
-    const modalTech = document.getElementById('modalTech');
+    window.openProjectModal = function (projectId) {
+        const data = projectData[projectId];
+        if (!data || !modal || !modalBody) return;
 
-    let triggerElement = null;
+        modalBody.innerHTML = `
+      <div class="modal-content-inner">
+        <span class="modal-badge">${data.badge}</span>
+        <h3>${data.title}</h3>
+        <p>${data.description}</p>
 
-    const openProjectModal = (projectId, originEl) => {
-        const data = projectDatabase[projectId];
-        if (!data || !systemModal) return;
+        <div class="modal-features">
+          <h4>Fitur Utama:</h4>
+          <ul>
+            ${data.features.map(f => `<li>${f}</li>`).join('')}
+          </ul>
+        </div>
 
-        triggerElement = originEl;
+        <div class="project-tech-tags" style="margin-top: 15px;">
+          ${data.techStack.map(t => `<span>${t}</span>`).join('')}
+        </div>
 
-        modalTag.textContent = data.tag;
-        modalHeading.textContent = data.title;
-        modalOrg.textContent = data.org;
-        modalDesc.textContent = data.description;
-        modalRole.innerHTML = data.role;
+        <div style="margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap;">
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+            <i class="fa-brands fa-github"></i> Kunjungi Repository
+          </a>
+          <button class="btn btn-outline btn-sm" onclick="closeProjectModal()">
+            Tutup Pratinjau
+          </button>
+        </div>
+      </div>
+    `;
 
-        // Populate Features
-        modalFeatures.innerHTML = '';
-        data.features.forEach((feat) => {
-            const li = document.createElement('li');
-            li.textContent = feat;
-            modalFeatures.appendChild(li);
-        });
-
-        // Populate Tech Chips
-        modalTech.innerHTML = '';
-        data.tech.forEach((item) => {
-            const span = document.createElement('span');
-            span.textContent = item;
-            modalTech.appendChild(span);
-        });
-
-        if (typeof systemModal.showModal === 'function') {
-            systemModal.showModal();
-        } else {
-            systemModal.setAttribute('open', '');
-        }
-
-        modalCloseBtn.focus();
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
     };
 
-    const closeProjectModal = () => {
-        if (!systemModal) return;
-
-        if (typeof systemModal.close === 'function') {
-            systemModal.close();
-        } else {
-            systemModal.removeAttribute('open');
-        }
-
+    window.closeProjectModal = function () {
+        if (!modal) return;
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
-        if (triggerElement) {
-            triggerElement.focus();
-        }
     };
 
-    // Bind click to elements with data-trigger
-    const modalTriggers = document.querySelectorAll('[data-trigger]');
-    modalTriggers.forEach((el) => {
-        const pid = el.dataset.trigger;
-        el.addEventListener('click', (e) => {
-            e.preventDefault();
-            openProjectModal(pid, el);
-        });
+    modalClose?.addEventListener('click', window.closeProjectModal);
 
-        el.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                openProjectModal(pid, el);
-            }
-        });
+    modal?.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            window.closeProjectModal();
+        }
     });
 
-    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeProjectModal);
-    if (modalCloseActionBtn) modalCloseActionBtn.addEventListener('click', closeProjectModal);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal?.classList.contains('active')) {
+            window.closeProjectModal();
+        }
+    });
 
-    if (systemModal) {
-        systemModal.addEventListener('click', (e) => {
-            if (e.target === systemModal) {
-                closeProjectModal();
-            }
-        });
-
-        systemModal.addEventListener('cancel', () => {
-            document.body.style.overflow = '';
-        });
-    }
-
-    // =========================================================================
-    // 9. TOAST NOTIFICATION UTILITY
-    // =========================================================================
-    const toastBox = document.getElementById('toastBox');
-    const toastTxt = document.getElementById('toastTxt');
-    let toastTimer = null;
-
-    const triggerToast = (msg, duration = 3000) => {
-        if (!toastBox || !toastTxt) return;
-
-        toastTxt.textContent = msg;
-        toastBox.classList.add('show');
-
-        if (toastTimer) clearTimeout(toastTimer);
-        toastTimer = setTimeout(() => {
-            toastBox.classList.remove('show');
-        }, duration);
-    };
-
-    // =========================================================================
-    // 10. COPY EMAIL BUTTON
-    // =========================================================================
-    const copyBtn = document.getElementById('copyBtn');
-    const emailVal = document.getElementById('emailVal');
-    const copyBtnText = document.getElementById('copyBtnText');
-
-    if (copyBtn && emailVal) {
-        copyBtn.addEventListener('click', async () => {
-            const emailStr = emailVal.textContent.trim();
-
-            try {
-                if (navigator.clipboard && navigator.clipboard.writeText) {
-                    await navigator.clipboard.writeText(emailStr);
-                } else {
-                    const ta = document.createElement('textarea');
-                    ta.value = emailStr;
-                    ta.style.position = 'fixed';
-                    ta.style.opacity = '0';
-                    document.body.appendChild(ta);
-                    ta.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(ta);
-                }
-
-                copyBtnText.textContent = 'Disalin!';
-                triggerToast(`Alamat email ${emailStr} berhasil disalin!`);
-
-                setTimeout(() => {
-                    copyBtnText.textContent = 'Salin';
-                }, 2000);
-            } catch (err) {
-                triggerToast(`Kirim email ke: ${emailStr}`);
-            }
-        });
-    }
-
-    // =========================================================================
-    // 11. INTERACTIVE CONTACT FORM WITH VALIDATION
-    // =========================================================================
+    // 9. Contact Form Validation & Toast Notification
     const contactForm = document.getElementById('contactForm');
-    const nameInput = document.getElementById('nameInput');
-    const emailInput = document.getElementById('emailInput');
-    const subjectInput = document.getElementById('subjectInput');
-    const messageInput = document.getElementById('messageInput');
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
 
-    const nameError = document.getElementById('nameError');
-    const emailError = document.getElementById('emailError');
-    const subjectError = document.getElementById('subjectError');
-    const messageError = document.getElementById('messageError');
+    function showToast(message) {
+        if (!toast) return;
+        if (toastMessage) toastMessage.textContent = message;
+        toast.classList.add('show');
 
-    const submitBtn = document.getElementById('submitBtn');
-    const formFeedback = document.getElementById('formFeedback');
-
-    const validateEmailFormat = (email) => {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    };
-
-    if (contactForm && submitBtn) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            let isValid = true;
-            nameError.textContent = '';
-            emailError.textContent = '';
-            subjectError.textContent = '';
-            messageError.textContent = '';
-            formFeedback.textContent = '';
-            formFeedback.className = 'form-feedback';
-
-            // Validate Name
-            const nameVal = nameInput.value.trim();
-            if (!nameVal) {
-                nameError.textContent = 'Nama lengkap wajib diisi.';
-                isValid = false;
-            } else if (nameVal.length < 2) {
-                nameError.textContent = 'Nama minimal 2 karakter.';
-                isValid = false;
-            }
-
-            // Validate Email
-            const emailTextVal = emailInput.value.trim();
-            if (!emailTextVal) {
-                emailError.textContent = 'Alamat email wajib diisi.';
-                isValid = false;
-            } else if (!validateEmailFormat(emailTextVal)) {
-                emailError.textContent = 'Format email tidak valid (contoh: nama@domain.com).';
-                isValid = false;
-            }
-
-            // Validate Subject
-            const subjectVal = subjectInput.value.trim();
-            if (!subjectVal) {
-                subjectError.textContent = 'Tujuan / topik pesan wajib diisi.';
-                isValid = false;
-            }
-
-            // Validate Message
-            const msgVal = messageInput.value.trim();
-            if (!msgVal) {
-                messageError.textContent = 'Pesan wajib diisi.';
-                isValid = false;
-            } else if (msgVal.length < 10) {
-                messageError.textContent = 'Pesan terlalu singkat (minimal 10 karakter).';
-                isValid = false;
-            }
-
-            if (!isValid) return;
-
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span>Mengirim Pesan...</span>';
-
-            setTimeout(() => {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<span>Kirim Pesan</span><span aria-hidden="true">↗</span>';
-
-                formFeedback.textContent = `Terima kasih, ${nameVal}! Pesan Anda telah terkirim ke Nayla Vilova Tivani (RPL SMK Telkom Lampung). Saya akan membalas segera.`;
-                formFeedback.classList.add('success');
-
-                triggerToast(`Pesan dari ${nameVal} berhasil terkirim!`);
-                contactForm.reset();
-            }, 900);
-        });
-
-        [nameInput, emailInput, subjectInput, messageInput].forEach((inp) => {
-            if (inp) {
-                inp.addEventListener('input', () => {
-                    const errEl = document.getElementById(`${inp.id.replace('Input', 'Error')}`);
-                    if (errEl) errEl.textContent = '';
-                });
-            }
-        });
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 4000);
     }
 
-    // =========================================================================
-    // 12. SCROLL REVEAL & STAT TRIGGER (IntersectionObserver)
-    // =========================================================================
-    const revealElements = document.querySelectorAll('.reveal');
-    const aboutSection = document.getElementById('about');
-
-    if ('IntersectionObserver' in window) {
-        const obs = new IntersectionObserver((entries, observer) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    if (entry.target.id === 'about' || entry.target.contains(aboutSection)) {
-                        animateStats();
-                    }
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
-
-        revealElements.forEach((el) => obs.observe(el));
-    } else {
-        revealElements.forEach((el) => el.classList.add('is-visible'));
-        animateStats();
+    function validateEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(String(email).toLowerCase());
     }
 
-    // =========================================================================
-    // 13. BACK TO TOP SMOOTH SCROLL
-    // =========================================================================
-    const backTopBtn = document.getElementById('backTopBtn');
-    if (backTopBtn) {
-        backTopBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
+    contactForm?.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-    // Ready Signature
-    console.log('%c Nayla Vilova Tivani %c Siswi RPL SMK Telkom Lampung • Web Developer ',
-        'background: #131920; color: #38bdf8; font-weight: bold; padding: 4px 8px; border-radius: 4px 0 0 4px; border: 1px solid #38bdf8; box-shadow: 0 0 10px rgba(56,189,248,0.4);',
-        'background: #1e2632; color: #f8fafc; padding: 4px 8px; border-radius: 0 4px 4px 0; border: 1px solid rgba(241, 245, 249, 0.15);'
-    );
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const subjectInput = document.getElementById('subject');
+        const messageInput = document.getElementById('message');
+
+        let isValid = true;
+
+        // Reset error styles
+        document.querySelectorAll('.form-group').forEach(group => group.classList.remove('has-error'));
+
+        // Validate Name
+        if (!nameInput.value.trim()) {
+            nameInput.closest('.form-group')?.classList.add('has-error');
+            isValid = false;
+        }
+
+        // Validate Email
+        if (!validateEmail(emailInput.value.trim())) {
+            emailInput.closest('.form-group')?.classList.add('has-error');
+            isValid = false;
+        }
+
+        // Validate Subject
+        if (!subjectInput.value.trim()) {
+            subjectInput.closest('.form-group')?.classList.add('has-error');
+            isValid = false;
+        }
+
+        // Validate Message (min 10 chars)
+        if (messageInput.value.trim().length < 10) {
+            messageInput.closest('.form-group')?.classList.add('has-error');
+            isValid = false;
+        }
+
+        if (isValid) {
+            const senderName = nameInput.value.trim();
+            showToast(`Terima kasih ${senderName}! Pesan Anda berhasil dikirim.`);
+            contactForm.reset();
+        }
+    });
 });
