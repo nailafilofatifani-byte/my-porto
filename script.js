@@ -1,5 +1,5 @@
 /**
- * Portofolio Web Script - Baiq Salfa Sheyna Arfani
+ * Portofolio Web Script - Nayla Vilova Tivani
  * Siswa Rekayasa Perangkat Lunak (RPL) - SMK Telkom Lampung
  */
 
